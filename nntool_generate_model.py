@@ -74,6 +74,8 @@ if __name__ == '__main__':
             "graph_produce_operinfos": True,
             "graph_const_exec_from_flash": True,
 
+            "graph_l1_promotion": 1,
+
             "l3_ram_device": args.ram_type,
             "l3_flash_device": args.flash_type, #"AT_MEM_L3_DEFAULTFLASH",
         }
