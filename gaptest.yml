@@ -1,0 +1,33 @@
+name: licence_plate_recognition
+builder: cmake
+boards: []
+platforms: 
+    - board
+    - gvsoc
+os: 
+#- freertos TODO: to be fixed in freeRTOS
+    - freertos
+chips: 
+    - gap9
+variants:
+    mobilenet:
+        name: mobilenet
+        tags:
+            - integration
+            - release
+        duration: standard
+        flags: CI_TARGET=1
+    mobilenet_resized:
+        name: mobilenet_resized
+        tags:
+            - integration
+            - release
+        duration: standard
+        flags: CI_TARGET=1 INFERENCE_RESIZE=y
+    mit:
+        name: mit
+        tags:
+            - integration
+            - release
+        duration: standard
+        flags: CI_TARGET=1

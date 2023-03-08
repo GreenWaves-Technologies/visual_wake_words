@@ -27,10 +27,10 @@ elseif (CONFIG_MIT_PROXYLESSNAS)
 endif()
 message(STATUS "${APP_MSG_PREFIX} Using the ${TRAINED_MODEL}")
 
-if(CONFIG_CI)
-  message(STATUS "${APP_MSG_PREFIX} Building App in CI Mode")
+if(CONFIG_INFERENCE)
+  message(STATUS "${APP_MSG_PREFIX} Building App in INFERENCE Mode")
 
-  if (CONFIG_CI_RESIZER)
+  if (CONFIG_INFERENCE_RESIZER)
     set(INPUT_IMAGE         "${CMAKE_CURRENT_SOURCE_DIR}/images/COCO_val2014_000000174838_1_160x120.ppm")
     set(RESIZER_FLAG        --insert_resizer)
     set(NN_WIN        160)
@@ -113,6 +113,9 @@ list(APPEND TARGET_PREPROCESSOR -DPERF
                                 -DNN_HIN=${NN_HIN}
                                 -DNN_WIN=${NN_WIN}
 )
+if (DEFINED CI_TARGET)
+  list(APPEND TARGET_PREPROCESSOR -DCI_TARGET=${CI_TARGET})
+endif()
 
 project(${TARGET_NAME} C ASM)
 

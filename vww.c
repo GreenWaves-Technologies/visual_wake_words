@@ -12,6 +12,7 @@
 /* Autotiler includes. */
 #include "vww.h"
 #include "vwwKernels.h"
+#include "vwwModelInfos.h"
 #include "gaplib/ImgIO.h"
 
 #ifdef __EMUL__
@@ -47,8 +48,16 @@ static void cluster()
     #endif
 
     vwwCNN(Output_1);
-    printf("%d %d\n", Output_1[0], Output_1[1]);
-    printf("Runner completed\n");
+    int predicted_class = (Output_1[0]<Output_1[1])?1:0;
+    printf("Predicted class: %s with confidence %.2f%%\n", predicted_class?"Person":"No Person", 100*(((float) Output_1[predicted_class]) - vww_Output_1_OUT_ZERO_POINT) * vww_Output_1_OUT_SCALE);
+    #ifdef CI_TARGET
+    if (predicted_class == CI_TARGET) {
+        printf("Correct Result\n");
+    } else {
+        printf("Error predicting class: exptecting %d\n", CI_TARGET);
+        pmsis_exit(-1);
+    }
+    #endif
 
 }
 
