@@ -1,4 +1,4 @@
-name: licence_plate_recognition
+name: visual_wake_words_gap9
 builder: cmake
 boards: []
 platforms: 
