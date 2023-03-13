@@ -79,6 +79,7 @@ add_custom_target(${NNTOOL_TARGET_PREFIX}clean_model
 list(APPEND TARGET_SRCS ${MAIN}
                         ${CNN_LIB}
                         ${CONFIG_MODEL_BUILDDIR}/${KERNEL_C}
+                        ${CONFIG_MODEL_BUILDDIR}/Expression_Kernels.c
                         ${MODEL_EXPRESSIONS}
 )
 

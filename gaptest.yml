@@ -30,4 +30,4 @@ variants:
             - integration
             - release
         duration: standard
-        flags: CI_TARGET=1
+        flags: CI_TARGET=1 CONFIG_MIT_PROXYLESSNAS=y
