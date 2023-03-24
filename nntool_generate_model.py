@@ -5,7 +5,6 @@ import os
 import copy
 import pickle
 from pathlib import Path
-from loguru import logger
 from nntool.api import NNGraph
 from nntool.utils.stats_funcs import qsnr
 from PIL import Image
