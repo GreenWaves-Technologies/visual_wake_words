@@ -56,7 +56,7 @@ autotiler_define_gen_names(${TARGET_NAME})
 set(AT_TENSORS_DIR BUILD_MODEL/weights_tensors)
 autotiler_setup(${TARGET_NAME})
 add_custom_command(
-  OUTPUT ${AT_MODEL_PATH} ${AT_TENSORS_DIR}
+  OUTPUT ${AT_MODEL_PATH} ${AT_TENSORS_DIR} ${CONFIG_MODEL_BUILDDIR}/Expression_Kernels.c
   COMMENT "Generating the autotiler model"
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/nntool_generate_model.py
   COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/nntool_generate_model.py
