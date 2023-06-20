@@ -29,8 +29,8 @@ pi_device_t Ram;
 static struct pi_default_ram_conf ram_conf;
 uint8_t ext_ram_buf;
 
-static pi_task_t ctrl_tasks[2];
-static pi_task_t ram_tasks[2];
+static pi_evt_t ctrl_tasks[2];
+static pi_evt_t ram_tasks[2];
 static int remaining_size;
 static int saved_size = 0;
 static volatile int done = 0;
@@ -48,7 +48,7 @@ PI_L2 unsigned char *iter_buff[2];
 #define ITER_SIZE (W_CAM*2*2)
 #define RAW_SIZE (W_CAM*H_CAM*2) // For now only 10 bits config works
 
-static pi_event_t proc_task;
+static pi_evt_t proc_task;
 
 static struct pi_device camera;
 PI_L2 unsigned char *buff[2];
@@ -61,7 +61,7 @@ static void enqueue_transfer() {
 
     while (remaining_size > 0 && nb_transfers < 2) {
         int iter_size = (remaining_size < ITER_SIZE) ? remaining_size : ITER_SIZE;
-        pi_task_t *task = &ctrl_tasks[current_task];
+        pi_evt_t *task = &ctrl_tasks[current_task];
 
         // Enqueue a transfer. The callback will be called once the transfer is finished
         // so that  a new one is enqueued while another one is already running
@@ -80,7 +80,7 @@ static void handle_transfer_end(void *arg) {
     unsigned char current_buff = (unsigned char) arg;
 
     enqueue_transfer();
-    pi_task_t *task = &ram_tasks[current_buff];
+    pi_evt_t *task = &ram_tasks[current_buff];
     unsigned char * img = iter_buff[current_buff];
     int rgb_idx=0;
     for (int a = 0; a < W_CAM; a+=2) {
